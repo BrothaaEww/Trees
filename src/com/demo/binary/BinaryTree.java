@@ -316,8 +316,9 @@ public class BinaryTree {
 			System.out.println("2. Preorder Traversal");
 			System.out.println("3. Postorder Traversal");
 			System.out.println("4. Level Order Traversal");
-			System.out.println("5. Print the tree structure");
-			System.out.println("6. Return to Main Menu");
+			System.out.println("5. Moriss Traversal Inorder");
+			System.out.println("6. Print the tree structure");
+			System.out.println("7. Return to Main Menu");
 
 			System.out.print("Enter your choice: ");
 			Integer choice = Integer.parseInt(in.readLine());
@@ -339,9 +340,13 @@ public class BinaryTree {
 				levelOrder(root);
 				break;
 			case 5:
-				treePrint(root, "");
+				morissTraversalInOrder(root);
+				System.out.println();
 				break;
 			case 6:
+				treePrint(root, "");
+				break;
+			case 7:
 				System.out.println("Returning to the main menu.");
 				return;
 			default:
@@ -416,6 +421,35 @@ public class BinaryTree {
 			}
 		}
 		System.out.println();
+	}
+
+	/**
+	 * Method for inorder traversal of the binary tree using moriss traversal.
+	 * 
+	 * @param root The root node of the tree.
+	 */
+
+	public static void morissTraversalInOrder(TreeNode root) {
+		TreeNode current = root;
+		while (current != null) {
+			if (current.left == null) {
+				System.out.print(current.data + " ");
+				current = current.right;
+			} else {
+				TreeNode predecessor = current.left;
+				while (predecessor.right != null && predecessor.right != current) {
+					predecessor = predecessor.right;
+				}
+				if (predecessor.right == null) {
+					predecessor.right = current;
+					current = current.left;
+				} else {
+					predecessor.right = null;
+					System.out.print(current.data + " ");
+					current = current.right;
+				}
+			}
+		}
 	}
 
 	/**
