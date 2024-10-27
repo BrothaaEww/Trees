@@ -117,6 +117,27 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Method to create a dymmy tree for utilization
+	 * 
+	 * @return root of the dummy tree
+	 */
+
+	public static TreeNode createDummy() {
+
+		TreeNode root = new TreeNode(10);
+		root.left = new TreeNode(20);
+		root.right = new TreeNode(30);
+		root.left.left = new TreeNode(40);
+		root.left.left.left = new TreeNode(70);
+		root.left.left.right = new TreeNode(80);
+		root.left.right = new TreeNode(50);
+		root.right.left = new TreeNode(60);
+		System.out.println("Dummy tree Generated");
+		System.out.println("----------------------------------------------------------------------------------");
+		return root;
+	}
+
+	/**
 	 * Method to insert a node into the binary tree.
 	 *
 	 * @param tree The binary tree object.
@@ -590,19 +611,36 @@ public class BinaryTree {
 		return true;
 	}
 
-	public static TreeNode createDummy() {
+	/**
+	 * Method to check if the tree is a BST
+	 * 
+	 * @param root The root node of the tree.
+	 * @return true if the tree is BST, false otherwise
+	 */
+	public static boolean isBinarySearchTree(TreeNode root) {
+		return isBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
 
-		TreeNode root = new TreeNode(10);
-		root.left = new TreeNode(20);
-		root.right = new TreeNode(30);
-		root.left.left = new TreeNode(40);
-		root.left.left.left = new TreeNode(70);
-		root.left.left.right = new TreeNode(80);
-		root.left.right = new TreeNode(50);
-		root.right.left = new TreeNode(60);
-		System.out.println("Dummy tree Generated");
-		System.out.println("----------------------------------------------------------------------------------");
-		return root;
+	/**
+	 * helper method to check if the tree is BST
+	 * 
+	 * @param node current node of the tree
+	 * @param min  of the sub tree
+	 * @param max  of the subtree
+	 * @return true if both the sub trees are BSTs, false otherwise
+	 */
+	public static boolean isBSTHelper(TreeNode node, int min, int max) {
+		if (node == null)
+			return true;
+
+		// If the current node's data
+		// is not in the valid range, return false
+		if (node.data < min || node.data > max)
+			return false;
+
+		// Recursively check the left and
+		// right subtrees with updated ranges
+		return isBSTHelper(node.left, min, node.data - 1) && isBSTHelper(node.right, node.data + 1, max);
 	}
 
 	/**
@@ -630,7 +668,8 @@ public class BinaryTree {
 			System.out.println("8.  Calculate the depth of a node");
 			System.out.println("9.  Check if the tree is a full binary tree");
 			System.out.println("10. Check if the tree is a complete binary tree");
-			System.out.println("11. Exit");
+			System.out.println("11. Check if the tree is a BST");
+			System.out.println("12. Exit");
 			System.out.print("Enter your choice: ");
 			Integer choice = Integer.parseInt(in.readLine());
 			System.out.println("----------------------------------------------------------------------------------");
@@ -730,6 +769,16 @@ public class BinaryTree {
 						.println("----------------------------------------------------------------------------------");
 				break;
 			case 11:
+				boolean isBST = isBinarySearchTree(tree.root);
+				if (isBST) {
+					System.out.println("The binary tree is a Binary Search Tree.");
+				} else {
+					System.out.println("The binary tree is not a Binary Search Tree.");
+				}
+				System.out
+						.println("----------------------------------------------------------------------------------");
+				break;
+			case 12:
 				System.out.println("Thank you for using the binary tree program. Goodbye.");
 				System.exit(0);
 				break;
