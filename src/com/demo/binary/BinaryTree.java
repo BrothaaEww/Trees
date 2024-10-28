@@ -117,7 +117,7 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method to create a dymmy tree for utilization
+	 * Method to create a dummy tree for utilization
 	 * 
 	 * @return root of the dummy tree
 	 */
@@ -297,7 +297,7 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method to search for a node in the binary tree using preorder traversal.
+	 * Method to search for a node in the binary tree using pre-order traversal.
 	 *
 	 * @param root       The root node of the tree.
 	 * @param searchData The data to search for.
@@ -337,8 +337,8 @@ public class BinaryTree {
 			System.out.println("2. Preorder Traversal");
 			System.out.println("3. Postorder Traversal");
 			System.out.println("4. Level Order Traversal");
-			System.out.println("5. Moriss Traversal Inorder");
-			System.out.println("6. Print the tree structure");
+			System.out.println("5. Print the tree structure");
+			System.out.println("6. Moriss Traversal List");
 			System.out.println("7. Return to Main Menu");
 
 			System.out.print("Enter your choice: ");
@@ -359,13 +359,15 @@ public class BinaryTree {
 				break;
 			case 4:
 				levelOrder(root);
+				System.out.println();
 				break;
 			case 5:
-				morissTraversalInOrder(root);
+				treePrint(root, "");
 				System.out.println();
 				break;
 			case 6:
-				treePrint(root, "");
+				moriss(root, in);
+				System.out.println();
 				break;
 			case 7:
 				System.out.println("Returning to the main menu.");
@@ -378,7 +380,7 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method for inorder traversal of the binary tree.
+	 * Method for in-order traversal of the binary tree.
 	 *
 	 * @param root The root node of the tree.
 	 */
@@ -391,7 +393,7 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method for preorder traversal of the binary tree.
+	 * Method for pre-order traversal of the binary tree.
 	 *
 	 * @param root The root node of the tree.
 	 */
@@ -404,7 +406,7 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method for postorder traversal of the binary tree.
+	 * Method for post-order traversal of the binary tree.
 	 *
 	 * @param root The root node of the tree.
 	 */
@@ -445,7 +447,68 @@ public class BinaryTree {
 	}
 
 	/**
-	 * Method for inorder traversal of the binary tree using moriss traversal.
+	 * 
+	 * @param root   The root node of the tree.
+	 * @param prefix indicates the depth of tree(default value is empty String)
+	 */
+	public static void treePrint(TreeNode root, String prefix) {
+		if (root != null) {
+			System.out.println(prefix + root.data + " "); // Visit the root node
+			treePrint(root.left, prefix + "|-"); // Traverse the left subtree
+			treePrint(root.right, prefix + "|-"); // Traverse the right subtree
+		}
+	}
+
+	/**
+	 * Method to handle various moriss-traversal operations based on user input.
+	 * 
+	 * @param root The root node of the tree.
+	 * @param in   BufferedReader for user input.
+	 * @throws IOException If an I/O error occurs.
+	 */
+
+	public static void moriss(TreeNode root, BufferedReader in) throws IOException {
+		if (root == null) {
+			System.out.println("The binary tree is currently empty.");
+			return;
+		}
+
+		// Loop to continuously prompt the user for traversal options
+		while (true) {
+			System.out.println("Select a traversal method:");
+			System.out.println("1. Inorder Moriss Traversal");
+			System.out.println("2. Preorder Moriss Traversal");
+			System.out.println("3. Postorder Moriss Traversal");
+			System.out.println("4. Return to Traversal Menu");
+
+			System.out.print("Enter your choice: ");
+			Integer choice = Integer.parseInt(in.readLine());
+			System.out.println("----------------------------------------------------------------------------------");
+			switch (choice) {
+			case 1:
+				morissTraversalInOrder(root);
+				System.out.println();
+				break;
+			case 2:
+				morrisTraversalPreOrder(root);
+				System.out.println();
+				break;
+			case 3:
+				postOrder(root);
+				System.out.println();
+				break;
+			case 4:
+				System.out.println("Returning to the traversal menu.");
+				return;
+			default:
+				System.out.println("Invalid choice. Please select a valid option.");
+			}
+			System.out.println("----------------------------------------------------------------------------------");
+		}
+	}
+
+	/**
+	 * Method for in-order traversal of the binary tree using moriss-traversal.
 	 * 
 	 * @param root The root node of the tree.
 	 */
@@ -474,16 +537,112 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Method for pre-order traversal of the binary tree using moriss-traversal.
 	 * 
-	 * @param root   The root node of the tree.
-	 * @param prefix indicates the depth of tree(defaul value is empty String)
+	 * @param root The root node of the tree.
 	 */
-	public static void treePrint(TreeNode root, String prefix) {
-		if (root != null) {
-			System.out.println(prefix + root.data + " "); // Visit the root node
-			treePrint(root.left, prefix + "|-"); // Traverse the left subtree
-			treePrint(root.right, prefix + "|-"); // Traverse the right subtree
+
+	public static void morrisTraversalPreOrder(TreeNode root) {
+		TreeNode current = root;
+
+		while (current != null) {
+			if (current.left == null) {
+				System.out.print(current.data + " ");
+				current = current.right;
+			} else {
+				TreeNode predecessor = current.left;
+				while (predecessor.right != null && predecessor.right != current) {
+					predecessor = predecessor.right;
+				}
+				if (predecessor.right == null) {
+					System.out.print(current.data + " "); // Print before creating the thread
+					predecessor.right = current;
+					current = current.left;
+				} else {
+					predecessor.right = null;
+					current = current.right;
+				}
+			}
 		}
+	}
+
+	/**
+	 * Method for post-order traversal of the binary tree using moriss-traversal.
+	 * 
+	 * @param root
+	 */
+	public static void morrisTraversalPostOrder(TreeNode root) {
+		TreeNode dummyRoot = new TreeNode(0);
+		dummyRoot.left = root;
+		TreeNode current = dummyRoot;
+
+		while (current != null) {
+			if (current.left == null) {
+				current = current.right;
+			} else {
+				TreeNode predecessor = current.left;
+				// Find the rightmost node in the left subtree or the link back to the current
+				// node
+				while (predecessor.right != null && predecessor.right != current) {
+					predecessor = predecessor.right;
+				}
+
+				if (predecessor.right == null) {
+					// Create a thread back to the current node
+					predecessor.right = current;
+					current = current.left;
+				} else {
+					// Reverse the path from predecessor to current
+					printReverse(current.left, predecessor);
+					predecessor.right = null;
+					current = current.right;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Helper function to print the nodes from `from` to `to` in reverse order
+	 * 
+	 * @param reverse index
+	 * @param to      reverse index
+	 */
+	public static void printReverse(TreeNode from, TreeNode to) {
+		reversePath(from, to);
+
+		TreeNode current = to;
+		while (true) {
+			System.out.print(current.data + " ");
+			if (current == from)
+				break;
+			current = current.right;
+		}
+
+		// Restore the path back to original
+		reversePath(to, from);
+	}
+
+	/**
+	 * Helper function to reverse the right pointers in the path from `from` to `to`
+	 * 
+	 * @param from reverse index
+	 * @param to   reverse index
+	 */
+	public static void reversePath(TreeNode from, TreeNode to) {
+		if (from == to)
+			return;
+
+		TreeNode prev = null;
+		TreeNode current = from;
+		TreeNode next;
+
+		while (current != to) {
+			next = current.right;
+			current.right = prev;
+			prev = current;
+			current = next;
+		}
+		current.right = prev;
 	}
 
 	/**
@@ -625,8 +784,8 @@ public class BinaryTree {
 	 * helper method to check if the tree is BST
 	 * 
 	 * @param node current node of the tree
-	 * @param min  of the sub tree
-	 * @param max  of the subtree
+	 * @param minimum of the sub tree
+	 * @param maximum of the subtree
 	 * @return true if both the sub trees are BSTs, false otherwise
 	 */
 	public static boolean isBSTHelper(TreeNode node, int min, int max) {
