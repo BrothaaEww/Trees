@@ -6,6 +6,77 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 /**
+ * BinaryTree Implementation in Java
+ * 
+ * This program provides a comprehensive implementation of a Binary Tree, 
+ * featuring essential operations like insertion, deletion, and traversal, 
+ * along with advanced techniques such as Morris traversal and structural 
+ * validations (e.g., checking for Binary Search Tree, Full Binary Tree, etc.).
+ * 
+ * <p><strong>Key Features:</strong></p>
+ * <ul>
+ *   <li>Dynamic node insertion and deletion</li>
+ *   <li>Search operations for specific nodes</li>
+ *   <li>Tree traversal methods:
+ *     <ul>
+ *       <li>Inorder, Preorder, Postorder (traditional)</li>
+ *       <li>Level-order traversal using a custom queue</li>
+ *       <li>Morris Traversal (Inorder, Preorder, Postorder)</li>
+ *     </ul>
+ *   </li>
+ *   <li>Tree structural checks:
+ *     <ul>
+ *       <li>Full Binary Tree</li>
+ *       <li>Complete Binary Tree</li>
+ *       <li>Binary Search Tree (BST)</li>
+ *     </ul>
+ *   </li>
+ *   <li>Utility methods for height and depth calculation</li>
+ *   <li>Visualization support with indentation-based tree printing</li>
+ * </ul>
+ * 
+ * <p><strong>Example Dummy Tree:</strong></p>
+ * The `createDummy()` method generates the following tree structure:
+ * <pre>
+ *          10
+ *        /    \
+ *      20      30
+ *     /  \    /
+ *   40   50  60
+ *  /  \
+ * 70   80
+ * </pre>
+ * 
+ * <p><strong>Menu Options:</strong></p>
+ * The program offers an interactive menu-driven interface to perform operations:
+ * <ol>
+ *   <li>Create a dummy tree</li>
+ *   <li>Insert a node</li>
+ *   <li>Delete the entire tree</li>
+ *   <li>Delete a specific node</li>
+ *   <li>Search for a node</li>
+ *   <li>Traverse the tree</li>
+ *   <li>Find siblings of a node</li>
+ *   <li>Calculate the height of the tree</li>
+ *   <li>Calculate the depth of a node</li>
+ *   <li>Check if the tree is a full binary tree</li>
+ *   <li>Check if the tree is a complete binary tree</li>
+ *   <li>Check if the tree is a Binary Search Tree (BST)</li>
+ *   <li>Exit</li>
+ * </ol>
+ * 
+ * <p><strong>How to Use:</strong></p>
+ * 1. Compile the program:
+ *    <pre>javac com/demo/binary/BinaryTree.java</pre>
+ * 2. Run the program:
+ *    <pre>java com.demo.binary.BinaryTree</pre>
+ * 3. Follow the menu instructions to perform operations.
+ * 
+ * <p><strong>Author:</strong> Soumyajit Paul</p>
+ * <p><strong>Date:</strong> 2024</p>
+ */
+
+/**
  * Class representing a node in the queue.
  */
 class QueueNode {
