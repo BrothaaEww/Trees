@@ -494,7 +494,7 @@ public class BinaryTree {
 				System.out.println();
 				break;
 			case 3:
-				postOrder(root);
+				morrisTraversalPostOrder(root);
 				System.out.println();
 				break;
 			case 4:
@@ -783,7 +783,7 @@ public class BinaryTree {
 	/**
 	 * helper method to check if the tree is BST
 	 * 
-	 * @param node current node of the tree
+	 * @param node    current node of the tree
 	 * @param minimum of the sub tree
 	 * @param maximum of the subtree
 	 * @return true if both the sub trees are BSTs, false otherwise
